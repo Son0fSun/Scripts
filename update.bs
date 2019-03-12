@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#Update HomeBrew
+echo "===== UPDATING HOMEBREW ====="
+brew update
+brew upgrade
+brew cleanup -s
+brew cask cleanup
+
+echo "===== HOMEBREW CLEANUP ====="
+brew doctor
+brew missing
+apm upgrade -c false 
+
+#Update MacOS
+echo "===== UPDATING MACOS AND APPS ====="
+softwareupdate -i -a
+mas upgrade
+
+#Update Python
+echo "===== UPDATING PYTHON AND INSTALLED PACKAGES ====="
+pip freeze — local | grep -v ‘^\-e’ | cut -d = -f 1 | xargs -n1 pip install -U
+pip3 freeze — local | grep -v ‘^\-e’ | cut -d = -f 1 | xargs -n1 pip install -U
